@@ -3,24 +3,34 @@ import {
   addProducts,
   getProduct,
   getProducts,
+  updateProducts,
+  deleteProduct,
 } from '../controllers/productsGraphql';
 
 // GraphQL schema
 export const graphqlSchema = buildSchema(`
     type Query {
-        getProducts:[Course],
-        getProduct(_id: String!):Course,
+        getProducts:[Item],
+        getProduct(_id: String!):Item,
     },
     type Mutation {
-        addProducts(producto: ItemBase!): Course
+        addProducts(producto: ItemBase!): Item
+        updateProducto(id: String!, producto: ItemUpdate!): Item
+        deleteProducto(id: String!): String!
     },
     input ItemBase {
         _id: String!
         title: String!
         price: Int!
         thumbnail: String!
+    },
+    input ItemUpdate {
+        _id: String
+        title: String
+        price: Int
+        thumbnail: String
     }
-    type Course {
+    type Item {
         _id: String
         title: String
         price: Int
@@ -33,4 +43,6 @@ export const graphqlRoot = {
   getProducts,
   getProduct,
   addProducts,
+  updateProducts,
+  deleteProduct,
 };

@@ -35,3 +35,18 @@ export const addProducts = async (args: any) => {
     data: newItem,
   };
 };
+
+export const updateProducts = async (args: any) => {
+  const { title, price, thumbnail } = args.body;
+  const id = Number(args.id);
+  const newItem = productsPersistencia.actualizar(id, title, price, thumbnail);
+  return {
+    newItem,
+    msg: 'actualizando producto',
+  };
+};
+
+export const deleteProduct = async (args: { id: string }): Promise<string> => {
+  await productsPersistencia.borrarUno(args.id);
+  return 'Producto eliminado';
+};
